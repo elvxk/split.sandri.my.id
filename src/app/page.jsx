@@ -18,6 +18,7 @@ const Home = () => {
     serviceFee: 0,
   });
   const [result, setResult] = useState([]);
+  const [grand, setGrand] = useState(0);
 
   const addPerson = () => {
     setPeople([...people, { name: "", items: [{ name: "", price: 0 }] }]);
@@ -65,6 +66,7 @@ const Home = () => {
       };
     });
 
+    setGrand(grandTotal);
     setResult(individualTotals);
   };
 
@@ -130,25 +132,24 @@ const Home = () => {
       >
         Hitung
       </Button>
-      <h2 className="text-2xl font-bold text-center mt-10 mb-2">
+      <h2 className="text-2xl font-bold text-center mt-10 mb-4">
         {result.length > 0 ? "Hasil" : ""}
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-10">
         {result.map((res, index) => (
           <Card key={index} className="mb-4">
-            <CardHeader className="flex justify-center items-center">
+            <CardHeader className="flex justify-center items-center -m-4">
               <CardTitle className="font-bold text-xl">{res.name}</CardTitle>
             </CardHeader>
-            <CardContent className="-mt-4">
-              <div className="w-full h-[0.5] bg-gray-300"></div>
+            <CardContent className="border-t-2 pt-2">
               {res.items.map((item, itemIndex) => (
                 <div key={itemIndex} className="flex justify-between">
                   <span>{item.name}</span>
                   <span>{formatCurrency(item.price)}</span>
                 </div>
               ))}
-              <div className="w-full h-[0.5] bg-gray-300"></div>
-              <div className="flex justify-between">
+              {/* <div className="w-full h-[0.5] bg-gray-300"></div> */}
+              <div className="flex justify-between border-t-2">
                 <span>Total</span>
                 <span>{formatCurrency(res.totalBeforeDiscount)}</span>
               </div>
@@ -160,8 +161,8 @@ const Home = () => {
                 </span>
               </div>
 
-              <div className="w-full h-[0.5] bg-gray-300 mb-2"></div>
-              <div className="flex justify-between font-bold">
+              {/* <div className="w-full h-[0.5] bg-gray-300 mb-2"></div> */}
+              <div className="flex justify-between font-bold border-t-2 pt-2">
                 <span>Total Final</span>
                 <span className="bg-green-100 py-1 px-2 rounded-md">
                   {formatCurrency(res.amountToPay)}
@@ -171,6 +172,36 @@ const Home = () => {
           </Card>
         ))}
       </div>
+      {result.length > 0 ? (
+        <h2 className="mt-8 mb-2 sm:w-1/2 lg:w-1/3 mx-auto text-center p-2 border-black/50 border-2 text-sm">
+          <div className="flex justify-between">
+            <span>Subtotal</span>
+            <span>{formatCurrency(grand)}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Diskon</span>
+            <span>-{formatCurrency(total.discount)}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Biaya Pengiriman</span>
+            <span>{formatCurrency(total.deliveryFee)}</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Biaya Layanan</span>
+            <span>{formatCurrency(total.serviceFee)}</span>
+          </div>
+          <div className="flex justify-between font-bold border-t-black/25 border-t-2">
+            <span>Grand Total</span>
+            <span>
+              {formatCurrency(
+                grand - total.discount + total.deliveryFee + total.serviceFee,
+              )}
+            </span>
+          </div>
+        </h2>
+      ) : (
+        ""
+      )}
     </div>
   );
 };
