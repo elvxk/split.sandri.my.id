@@ -1,11 +1,9 @@
 "use client";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import PersonInput from "@/components/PersonInput";
 import Discount from "@/components/Discount";
 import Result from "@/components/Result";
-import formatCurrency from "@/utils/formatCurrency";
 import Nota from "@/components/Nota";
 
 const Home = () => {
