@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { IoIosClose } from "react-icons/io";
+import handleKeyDown from "@/utils/handleKey";
 
 const PersonInput = ({ person, setPeople, people, index }) => {
   const handlePersonChange = (e) => {
@@ -82,6 +83,9 @@ const PersonInput = ({ person, setPeople, people, index }) => {
                   value={item.price === 0 ? "" : item.price}
                   onChange={(e) => handleItemChange(e, itemIndex)}
                   placeholder={`Harga barang ${itemIndex + 1}`}
+                  onKeyDown={handleKeyDown}
+                  min="0"
+                  className="no-arrows"
                 />
                 <Button
                   className="md:self-end bg-bw"

@@ -1,3 +1,4 @@
+import handleKeyDown from "@/utils/handleKey";
 import { Card, CardContent } from "./ui/card";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
@@ -20,6 +21,9 @@ const Discount = ({ total, setTotal }) => {
               value={total.discount === 0 ? "" : total.discount}
               onChange={handleTotalChange}
               placeholder="Total diskon"
+              onKeyDown={handleKeyDown}
+              min="0"
+              className="no-arrows"
             />
           </div>
           <div className="flex gap-2 flex-col w-full">
@@ -30,6 +34,9 @@ const Discount = ({ total, setTotal }) => {
               value={total.deliveryFee === 0 ? "" : total.deliveryFee}
               placeholder="Biaya pengiriman"
               onChange={handleTotalChange}
+              onKeyDown={handleKeyDown}
+              min="0"
+              className="no-arrows"
             />
           </div>
           <div className="flex gap-2 flex-col w-full">
@@ -40,6 +47,9 @@ const Discount = ({ total, setTotal }) => {
               value={total.serviceFee === 0 ? "" : total.serviceFee}
               placeholder="Biaya layanan"
               onChange={handleTotalChange}
+              onKeyDown={handleKeyDown}
+              min="0"
+              className="no-arrows"
             />
           </div>
         </div>
